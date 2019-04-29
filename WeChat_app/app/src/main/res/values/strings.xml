@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WeChat_app</string>
+    <string name="main_wechat">微信</string>
+    <string name="main_friends">通信录</string>
+    <string name="main_find">发现</string>
+    <string name="main_mine">我</string>
+</resources>
