@@ -13,10 +13,18 @@
         android:layout_height="0dp">
     </android.support.v4.view.ViewPager>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/divide"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:background="@color/tabBackcolor">
 
         <com.example.wechat_app.view.TabView
             android:id="@+id/tab_wechat"

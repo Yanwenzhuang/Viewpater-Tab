@@ -1,5 +1,6 @@
 package com.example.wechat_app;
 
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -30,17 +31,25 @@ public class MainActivity extends AppCompatActivity {
     private TabView mTabMine;
     private SparseArray<TabFragment> mFragments = new SparseArray<>();
     private List<TabView> mTabs = new ArrayList<>();
+    private static final String BUNDLE_KEY_POS = "bundle_key_pos";
+    private int mCurTabPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState!=null){
+            mCurTabPos = savedInstanceState.getInt(BUNDLE_KEY_POS,0);
+        }
+
         initViews();
-        initViewPager();
+        initViewPagerAdapter();
+        initEvent();
 
     }
 
+    //初始化view
     public void initViews(){
         vp_main = findViewById(R.id.main_viewpager);
         mTabWechat = findViewById(R.id.tab_wechat);
@@ -57,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
         mTabs.add(mTabFriends);
         mTabs.add(mTabFind);
         mTabs.add(mTabMine);
-        mTabWechat.setProgress(1);
+        setCurrentTab(mCurTabPos);
     }
 
-    public void initViewPager(){
+    public void initViewPagerAdapter(){
         vp_main.setOffscreenPageLimit(mTitle.size());
         vp_main.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -113,5 +122,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //给每一个tab设置监听
+    private void initEvent(){
+        for (int i=0;i<mTabs.size();i++){
+            TabView tabView = mTabs.get(i);
+            final int finalI = i;
+            tabView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vp_main.setCurrentItem(finalI,false);
+                    setCurrentTab(finalI);
+                }
+            });
+        }
+    }
 
+    //将选中的tab设置为选中颜色
+    public void setCurrentTab(int pos){
+        for(int i=0;i<mTabs.size();i++){
+            TabView tabView = mTabs.get(i);
+            if(i==pos){
+                tabView.setProgress(1);
+            }else {
+                tabView.setProgress(0);
+            }
+        }
+    }
+
+    //保留被销毁activity的信息
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(BUNDLE_KEY_POS,vp_main.getCurrentItem());
+        super.onSaveInstanceState(outState);
+    }
 }
