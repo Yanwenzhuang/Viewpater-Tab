@@ -7,4 +7,5 @@
     <color name="colorSelect">#ff45C01A</color>
     <color name="tabBackcolor">#eeeeee</color>
     <color name="divide">#aaaaaa</color>
+    <color name="white">#ffffff</color>
 </resources>
