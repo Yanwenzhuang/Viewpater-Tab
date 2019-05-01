@@ -22,9 +22,10 @@ fragment对外提供自己的核心事件回调，activity自己选择是否监�
 6.FragmentPagerAdapter与FragmentStatePagerAdapter的区别；
 (1)FragmentPagerAdapter onDestoryView   onCreateView   (Fragment 没有被销毁 )                  
 (2)FragmentStatePagerAdapter onDestoryView onDestory onCreate OnCreateView ( Fragment 被销毁了)
-                                           
-	                                                       
-														   
-	                                         
-	
-                                  
+
+7.ViewPager切换动效
+   核心API:setPageTransformer
+  Banner切换效果
+   android:clipChildren = "false";  
+   setPageMargin(20);
+
